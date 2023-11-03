@@ -1,5 +1,3 @@
-import React from "react";
-
 const Header = () => {
   return (
     <div className="bg-gray-200 h-16 w-screen sticky top-0 flex items-center">

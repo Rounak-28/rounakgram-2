@@ -1,6 +1,9 @@
-import React from "react";
+type PostProps = {
+  caption: string;
+  imageUrl: string;
+};
 
-const Post = () => {
+const Post = ({ caption, imageUrl }: PostProps) => {
   return (
     <div className="w-96 min-h-[100px] border-2 border-red-600 mx-auto my-4 rounded-lg overflow-hidden">
       <div className="top flex items-center space-x-3 mx-1 h-16">
@@ -11,11 +14,8 @@ const Post = () => {
         </div>
       </div>
       <div className="main">
-        <span className="mx-1">Lorem ipsum dolor saecati.</span>
-        <img
-          src="https://cdn.pixabay.com/photo/2023/10/27/23/10/mountain-8346389_1280.jpg"
-          alt=""
-        />
+        <span className="mx-1">{caption}</span>
+        <img src={imageUrl} alt="" />
       </div>
     </div>
   );
