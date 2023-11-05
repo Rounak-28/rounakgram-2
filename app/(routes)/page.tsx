@@ -1,8 +1,7 @@
 import Post from "@/components/Post";
-import SideBar from "@/components/SideBar";
 
 async function getData() {
-  const res = await import("../app/api/getposts/route");
+  const res = await import("../api/getposts/route");
   return await (await res.GET()).json();
 }
 
@@ -11,7 +10,6 @@ export default async function Home() {
   // console.log(allposts)
   return (
     <div>
-      <SideBar />
       {allposts.map((post: any) => (
         <Post key={post.id} {...post} />
       ))}
