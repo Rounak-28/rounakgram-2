@@ -1,5 +1,9 @@
-import { UserButton } from "@clerk/nextjs";
+"use client";
+
+import { UserButton, useClerk } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 import Link from "next/link";
+import { useSelectedLayoutSegment } from "next/navigation";
 
 type NavComponentProps = {
   text: string;
@@ -7,10 +11,14 @@ type NavComponentProps = {
 };
 
 const NavComponent = ({ text, link }: NavComponentProps) => {
+  let segment: string | null = useSelectedLayoutSegment();
+  segment = segment === null ? "/" : `/${segment}`;
   return (
     <Link
       href={link}
-      className="bg-gray-400 h-12 my-1 flex justify-center items-center"
+      className={`${
+        segment === link && "bg-[#877eff]"
+      } h-16 rounded-md my-1 flex justify-center items-center`}
     >
       <h1>{text}</h1>
     </Link>
@@ -18,21 +26,36 @@ const NavComponent = ({ text, link }: NavComponentProps) => {
 };
 
 const SideBar = () => {
+  const { signOut } = useClerk();
   return (
-    <div className="w-48 bg-slate-100 h-screen fixed top-0 left-0">
-      <div className="flex bg-red-200 items-center space-x-2">
+    <div className="w-56 bg-[#09090a] h-screen fixed top-0 left-0 px-4">
+      <Link href="/">
+        <img src="/logo-dark.svg" className="mt-8" alt="" />
+      </Link>
+      <div className="flex h-24 items-center space-x-2 my-8">
         <UserButton
           afterSignOutUrl="/"
           appearance={{
+            baseTheme: dark,
             elements: {
-              avatarBox: "rounded-full w-12 h-12 ",
+              avatarBox: "rounded-full w-14 h-14",
             },
           }}
         />
-        <span className="text-lg font-semibold">rounak</span>
+        <span className="text-xl font-semibold">rounak</span>
       </div>
-      <NavComponent text="Home" link="/" />
-      <NavComponent text="Create Post" link="/sharepost" />
+      <div className="space-y-8">
+        <NavComponent text="Home" link="/" />
+        <NavComponent text="Create Post" link="/sharepost" />
+      </div>
+      <div className="w-full px-4 h-16 absolute bottom-5 left-0">
+        <button
+          className="flex w-full rounded-md  hover:bg-[#877eff] h-full items-center justify-center text-xl font-semibold"
+          onClick={() => signOut()}
+        >
+          Logout
+        </button>
+      </div>
     </div>
   );
 };
