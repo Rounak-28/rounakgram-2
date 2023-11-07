@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const page = () => {
+const Page = () => {
   const [selectedFile, setSelectedFile]: any = useState(null);
   const [fileBlobUrl, setFileBlobUrl]: any = useState(null);
 
@@ -68,4 +68,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
