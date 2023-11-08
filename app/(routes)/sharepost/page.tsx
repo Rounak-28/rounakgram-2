@@ -1,5 +1,6 @@
 "use client";
 
+import { supabase } from "@/lib/supabase";
 import { useEffect, useState } from "react";
 
 const Page = () => {
@@ -16,17 +17,22 @@ const Page = () => {
   };
 
   const handlePost = async () => {
-    // const formData = new FormData();
-    // formData.append("caption", "hello world");
-    // formData.append("file", selectedFile);
+    const { data, error } = await supabase.storage
+      .from("posts")
+      .upload("posts/img2.png", selectedFile, {
+        cacheControl: "3600",
+        upsert: false,
+      });
 
-    // const res = await fetch("/api/sharepost", {
-    //   method: "POST",
-    //   body: formData,
-    // });
-
-    // const data = await res.json();
-    // console.log(data);
+    if (error) {
+      console.log(error);
+      return;
+    }
+    if (data) {
+      // console.log(data);
+      setSelectedFile(null);
+      setFileBlobUrl(null);
+    }
   };
 
   useEffect(() => {
