@@ -6,20 +6,28 @@ import { useEffect, useState } from "react";
 const Page = () => {
   const [selectedFile, setSelectedFile]: any = useState(null);
   const [fileBlobUrl, setFileBlobUrl]: any = useState(null);
-
-  const handleFileInput = (event: any) => {
-    setSelectedFile(event.target.files[0]);
-  };
+  const [caption, setCaption] = useState("");
 
   const handleCancel = () => {
     setSelectedFile(null);
     setFileBlobUrl(null);
   };
 
+  const generateRandomString = (length: number) => {
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      result += characters[randomIndex];
+    }
+    return result;
+  };
+
   const handlePost = async () => {
     const { data, error } = await supabase.storage
       .from("posts")
-      .upload("posts/img2.png", selectedFile, {
+      .upload(`posts/img${generateRandomString(10)}.png`, selectedFile, {
         cacheControl: "3600",
         upsert: false,
       });
@@ -49,11 +57,16 @@ const Page = () => {
       <p className="text-2xl">Create Post</p>
       <input
         type="text"
+        onChange={(e) => setCaption(e.target.value)}
         placeholder="Caption..."
         className="w-[700px] h-32 bg-[#1d1d21] rounded-md px-3"
       />
       <div className="w-[700px] h-[400px] rounded-md bg-[#1d1d21] flex justify-center items-center">
-        <input type="file" name="" id="" onChange={handleFileInput} />
+        <input
+          type="file"
+          name=""
+          onChange={(e: any) => setSelectedFile(e.target.files[0])}
+        />
         <img src={fileBlobUrl} alt="" />
       </div>
       <div className="space-x-8">
