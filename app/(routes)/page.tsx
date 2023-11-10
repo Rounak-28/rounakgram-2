@@ -1,5 +1,7 @@
 import Post from "@/components/Post";
 
+export const revalidate = 0;
+
 async function getData() {
   const res = await import("../api/getposts/route");
   return await (await res.GET()).json();

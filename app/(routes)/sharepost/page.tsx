@@ -38,6 +38,17 @@ const Page = () => {
     }
     if (data) {
       // console.log(data);
+      const res = await fetch("/api/sharepost", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          caption: caption,
+          imageUrl: data.path,
+        }),
+      });
+      console.log(res)
       setSelectedFile(null);
       setFileBlobUrl(null);
     }
