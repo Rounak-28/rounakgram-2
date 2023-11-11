@@ -2,11 +2,14 @@
 
 import { supabase } from "@/lib/supabase";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
   const [selectedFile, setSelectedFile]: any = useState(null);
   const [fileBlobUrl, setFileBlobUrl]: any = useState(null);
   const [caption, setCaption] = useState("");
+
+  const router = useRouter();
 
   const handleCancel = () => {
     setSelectedFile(null);
@@ -25,7 +28,7 @@ const Page = () => {
   };
 
   const handlePost = async () => {
-    const { data, error } = await supabase.storage
+    const { data: uploadData, error } = await supabase.storage
       .from("posts")
       .upload(`posts/img${generateRandomString(10)}.png`, selectedFile, {
         cacheControl: "3600",
@@ -36,8 +39,11 @@ const Page = () => {
       console.log(error);
       return;
     }
-    if (data) {
-      // console.log(data);
+    if (uploadData) {
+      const { data: imageURL } = supabase.storage
+        .from("posts")
+        .getPublicUrl(uploadData.path);
+
       const res = await fetch("/api/sharepost", {
         method: "POST",
         headers: {
@@ -45,12 +51,13 @@ const Page = () => {
         },
         body: JSON.stringify({
           caption: caption,
-          imageUrl: data.path,
+          imageUrl: imageURL.publicUrl,
         }),
       });
-      console.log(res)
-      setSelectedFile(null);
-      setFileBlobUrl(null);
+      // setSelectedFile(null);
+      // setFileBlobUrl(null);
+      // setCaption("");
+      router.push("/");
     }
   };
 
