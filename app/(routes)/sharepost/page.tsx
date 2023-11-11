@@ -58,6 +58,7 @@ const Page = () => {
       // setFileBlobUrl(null);
       // setCaption("");
       router.push("/");
+      router.refresh();
     }
   };
 
