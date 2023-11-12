@@ -1,11 +1,9 @@
 import { prisma } from "@/lib/prismaClient";
 import { NextRequest, NextResponse } from "next/server";
-
 import { currentUser } from "@clerk/nextjs";
 
 export async function POST(request: NextRequest) {
   const req = await request.json();
-
   const user = await currentUser();
   const name = user?.firstName + " " + user?.lastName;
 
@@ -14,6 +12,7 @@ export async function POST(request: NextRequest) {
       caption: req.caption,
       imageUrl: req.imageUrl,
       userName: name,
+      userDP: user?.imageUrl,
     },
   });
 
