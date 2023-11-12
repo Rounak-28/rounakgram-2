@@ -27,7 +27,7 @@ const Post = ({ caption, imageUrl, createdAt, userName, userDP }: PostProps) => 
       </div>
       <div className="main">
         <span className="mx-1">{caption}</span>
-        <Image src={imageUrl} alt="" height={1000} width={1000}/>
+        <Image src={imageUrl} alt="" height={500} width={1000}/>
       </div>
     </div>
   );

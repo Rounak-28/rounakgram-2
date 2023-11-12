@@ -3,11 +3,13 @@
 import { supabase } from "@/lib/supabase";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Oval } from "react-loader-spinner";
 
 const Page = () => {
   const [selectedFile, setSelectedFile]: any = useState(null);
   const [fileBlobUrl, setFileBlobUrl]: any = useState(null);
   const [caption, setCaption] = useState("");
+  const [isPosting, setIsPosting] = useState(false);
 
   const router = useRouter();
 
@@ -28,6 +30,12 @@ const Page = () => {
   };
 
   const handlePost = async () => {
+    if (!selectedFile) {
+      return;
+      // TODO: show error that no image is selected
+    }
+
+    setIsPosting(true);
     const { data: uploadData, error } = await supabase.storage
       .from("posts")
       .upload(`posts/img${generateRandomString(10)}.png`, selectedFile, {
@@ -57,6 +65,7 @@ const Page = () => {
       // setSelectedFile(null);
       // setFileBlobUrl(null);
       // setCaption("");
+      // setIsPosting(false);
       router.push("/");
       router.refresh();
     }
@@ -88,19 +97,34 @@ const Page = () => {
         />
         <img src={fileBlobUrl} alt="" />
       </div>
-      <div className="space-x-8">
+      <div className="space-x-8 flex">
         <button
           className="w-28 h-12 rounded-sm bg-[#1f1f22] hover:bg-[#2f2f33]"
           onClick={handleCancel}
         >
           Cancel
         </button>
-        <button
-          className="w-28 h-12 rounded-sm bg-[#877eff] hover:bg-[#665de3]"
-          onClick={handlePost}
-        >
-          Post
-        </button>
+        {isPosting ? (
+          <Oval
+            height={30}
+            width={30}
+            color="#877eff"
+            wrapperStyle={{}}
+            wrapperClass="w-28 h-12 rounded-sm bg-[#665de3] flex justify-center items-center"
+            visible={true}
+            ariaLabel="oval-loading"
+            secondaryColor="#ffffff"
+            strokeWidth={3}
+            strokeWidthSecondary={3}
+          />
+        ) : (
+          <button
+            className="w-28 h-12 rounded-sm bg-[#877eff] hover:bg-[#665de3]"
+            onClick={handlePost}
+          >
+            Post
+          </button>
+        )}
       </div>
     </div>
   );
