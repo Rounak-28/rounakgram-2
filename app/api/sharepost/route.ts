@@ -5,13 +5,13 @@ import { currentUser } from "@clerk/nextjs";
 export async function POST(request: NextRequest) {
   const req = await request.json();
   const user = await currentUser();
-  const name = user?.firstName + " " + user?.lastName;
 
   const imagePost = await prisma.post.create({
     data: {
+      userID: user?.id,
       caption: req.caption,
       imageUrl: req.imageUrl,
-      userName: name,
+      userName: user?.firstName + " " + user?.lastName,
       userDP: user?.imageUrl,
     },
   });

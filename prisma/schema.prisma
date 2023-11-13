@@ -18,4 +18,5 @@ model Post {
   imageUrl  String
   userName  String   @default("")
   userDP    String   @default("")
+  userID    String   @default("")
 }
