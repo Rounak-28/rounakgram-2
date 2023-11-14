@@ -13,7 +13,7 @@ async function getData(id: string) {
 
 const Page = async ({ params }: { params: { id: string } }) => {
   const postData = await getData(params.id);
-  console.log(postData);
+  // console.log(postData);
   return (
     <div className="w-screen h-screen flex justify-center items-center">
       <div className="w-2/3 h-[90%]">
