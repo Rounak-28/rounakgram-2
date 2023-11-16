@@ -23,7 +23,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
   return (
     <div className="w-screen h-screen flex justify-center items-center">
       <div className="w-2/3 h-[90%]">
-        <div className="back h-[15%] flex items-center px-2  text-4xl text-violet-700">
+        <div className="back h-[15%] flex items-center px-2 text-4xl text-violet-700">
           <Link href="/">
             <div className="px-1 flex items-center space-x-4">
               <TiArrowBackOutline />
@@ -31,7 +31,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
             </div>
           </Link>
         </div>
-        <div className="main w-full flex h-[85%] border-2 ">
+        <div className="main w-full flex h-[85%] border-[1px] border-[#ffffff41] rounded-xl overflow-hidden">
           <div className="img h-full flex items-center w-[60%] ">
             <Image
               src={postData.imageUrl}
@@ -57,7 +57,6 @@ const Page = async ({ params }: { params: { id: string } }) => {
                 <p className="text-sm text-gray-300">{time}</p>
               </div>
             </div>
-            {/* <hr className="" /> */}
             <div className="caption py-4">
               <p>{postData.caption}</p>
             </div>
