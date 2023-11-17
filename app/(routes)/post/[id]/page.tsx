@@ -1,8 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
-import { TiArrowBackOutline } from "react-icons/ti";
 import { headers } from "next/headers";
 import { formatDistance } from "date-fns";
+import PostPageBackBtn from "@/components/PostPageBackBtn";
 
 async function getData(id: string) {
   const host = headers().get("host");
@@ -24,12 +23,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
     <div className="w-screen h-screen flex justify-center items-center">
       <div className="w-2/3 h-[90%]">
         <div className="back h-[15%] flex items-center px-2 text-4xl text-violet-700">
-          <Link href="/">
-            <div className="px-1 flex items-center space-x-4">
-              <TiArrowBackOutline />
-              <span className="text-xl text-white">Back</span>
-            </div>
-          </Link>
+          <PostPageBackBtn />
         </div>
         <div className="main w-full flex h-[85%] border-[1px] border-[#ffffff41] rounded-xl overflow-hidden">
           <div className="img h-full flex items-center w-[60%] ">
