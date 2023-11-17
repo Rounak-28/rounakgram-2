@@ -1,6 +1,6 @@
 "use client";
 
-import { UserButton, useClerk } from "@clerk/nextjs";
+import { UserButton, useClerk, useUser } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
@@ -27,6 +27,8 @@ const NavComponent = ({ text, link }: NavComponentProps) => {
 
 const SideBar = () => {
   const { signOut } = useClerk();
+  const { user } = useUser();
+  // console.log(user)
   return (
     <div className="w-56 bg-[#09090a] h-screen fixed top-0 left-0 px-4">
       <Link href="/">
@@ -42,7 +44,7 @@ const SideBar = () => {
             },
           }}
         />
-        <span className="text-xl font-semibold">rounak</span>
+        <span className="text-xl font-semibold">{user?.firstName}</span>
       </div>
       <div className="space-y-8">
         <NavComponent text="Home" link="/" />
