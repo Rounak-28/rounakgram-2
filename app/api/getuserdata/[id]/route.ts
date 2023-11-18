@@ -9,6 +9,9 @@ export async function GET(
     where: {
       userID: params.id,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
   return NextResponse.json(data, { status: 200 });
