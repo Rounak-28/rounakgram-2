@@ -2,6 +2,7 @@ import Image from "next/image";
 import { headers } from "next/headers";
 import { formatDistance } from "date-fns";
 import PostPageBackBtn from "@/components/PostPageBackBtn";
+import Link from "next/link";
 
 async function getData(id: string) {
   const host = headers().get("host");
@@ -26,7 +27,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
           <PostPageBackBtn />
         </div>
         <div className="main w-full flex h-[85%] border-[1px] border-[#ffffff41] rounded-xl overflow-hidden">
-          <div className="img h-full flex items-center w-[60%] ">
+          <div className="img h-full flex items-center w-[60%]">
             <Image
               src={postData.imageUrl}
               width={600}
@@ -47,7 +48,11 @@ const Page = async ({ params }: { params: { id: string } }) => {
                 />
               </div>
               <div className="name">
-                <p className="text-xl font-bold">{postData.userName}</p>
+                <Link href={`/user/${postData.userID}`}>
+                  <p className="text-xl font-bold hover:underline">
+                    {postData.userName}
+                  </p>
+                </Link>
                 <p className="text-sm text-gray-300">{time}</p>
               </div>
             </div>
