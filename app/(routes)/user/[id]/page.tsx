@@ -7,7 +7,7 @@ async function getUserPosts(id: string) {
   const host = headers().get("host");
   const protocal = process?.env.NODE_ENV === "development" ? "http" : "https";
 
-  const response = await fetch(`${protocal}://${host}/api/getuserdata/${id}`);
+  const response = await fetch(`${protocal}://${host}/api/getuserposts/${id}`);
   return response.json();
 }
 
