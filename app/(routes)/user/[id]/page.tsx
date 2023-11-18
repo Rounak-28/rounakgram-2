@@ -8,20 +8,11 @@ async function getUserPosts(id: string) {
   const protocal = process?.env.NODE_ENV === "development" ? "http" : "https";
 
   const response = await fetch(`${protocal}://${host}/api/getuserdata/${id}`);
-  // const user = clerkClient.users.getUser(id);
   return response.json();
 }
 
-async function getUserData(id: string) {
-  const host = headers().get("host");
-  const protocal = process?.env.NODE_ENV === "development" ? "http" : "https";
-
-  const user = await clerkClient.users.getUser(id);
-  return user;
-}
-
 export default async function Page({ params }: { params: { id: string } }) {
-  const userData = await getUserData(params.id);
+  const userData = await clerkClient.users.getUser(params.id);
   const userPosts = await getUserPosts(params.id);
   // console.log(userPosts)
   // console.log(userData);
