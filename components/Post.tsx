@@ -1,6 +1,7 @@
 import { formatDistance } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
+import PostLikes from "./PostLikes";
 
 type PostProps = {
   id: string;
@@ -54,6 +55,7 @@ const Post = ({
           />
         </div>
       </Link>
+      <PostLikes likeCount={10} isLikedByCurrentUser={false} />
     </div>
   );
 };
