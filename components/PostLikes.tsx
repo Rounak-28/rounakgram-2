@@ -46,7 +46,7 @@ const PostLikes = ({ currentUserID, postID, usersWhoLiked }: Props) => {
 
     // this thing does a whole page refresh but its making things work,
     // maybe try to remove later
-    router.refresh(); // this dont remove this line 🙂
+    router.refresh(); // please dont remove this line 🙂
   };
 
   return (

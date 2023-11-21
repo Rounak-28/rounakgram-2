@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
   if (isIncrement) {
     const data = await prisma.post.update({
       where: {
-        id: req.postID,
+        id: Number(req.postID), // casting to number just in case its string
       },
       data: {
         usersWhoLiked: {
@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
   } else {
     const data = await prisma.post.update({
       where: {
-        id: req.postID,
+        id: Number(req.postID),
       },
       data: {
         usersWhoLiked: {

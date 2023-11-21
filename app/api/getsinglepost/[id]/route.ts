@@ -9,6 +9,9 @@ export async function GET(
     where: {
       id: Number(params.id),
     },
+    include: {
+      usersWhoLiked: true,
+    },
   });
 
   return NextResponse.json(data, { status: 200 });

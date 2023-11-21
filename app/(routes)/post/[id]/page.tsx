@@ -3,8 +3,10 @@ import { headers } from "next/headers";
 import { formatDistance } from "date-fns";
 import PostPageBackBtn from "@/components/PostPageBackBtn";
 import Link from "next/link";
+import PostLikes from "@/components/PostLikes";
+import { currentUser } from "@clerk/nextjs";
 
-async function getData(id: string) {
+async function getData(id: number) {
   const host = headers().get("host");
   const protocal = process?.env.NODE_ENV === "development" ? "http" : "https";
 
@@ -12,7 +14,8 @@ async function getData(id: string) {
   return response.json();
 }
 
-const Page = async ({ params }: { params: { id: string } }) => {
+const Page = async ({ params }: { params: { id: number } }) => {
+  const user = await currentUser();
   const postData = await getData(params.id);
   // console.log(postData);
 
@@ -59,6 +62,11 @@ const Page = async ({ params }: { params: { id: string } }) => {
             <div className="caption py-4">
               <p>{postData.caption}</p>
             </div>
+            <PostLikes
+              currentUserID={user?.id!}
+              postID={params.id}
+              usersWhoLiked={postData.usersWhoLiked}
+            />
           </div>
         </div>
       </div>
