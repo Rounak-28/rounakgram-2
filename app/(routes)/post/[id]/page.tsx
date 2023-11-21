@@ -39,7 +39,7 @@ const Page = async ({ params }: { params: { id: number } }) => {
               className="px-4"
             />
           </div>
-          <div className="h-full w-[40%] bg-[#09090a] px-4 divide-y-[1px] divide-gray-600">
+          <div className="h-full w-[40%] bg-[#09090a] px-4 divide-y-[1px] divide-gray-600 relative">
             <div className="w-full h-32 flex items-center space-x-2">
               <div className="dp">
                 <Image
@@ -62,11 +62,13 @@ const Page = async ({ params }: { params: { id: number } }) => {
             <div className="caption py-4">
               <p>{postData.caption}</p>
             </div>
-            <PostLikes
-              currentUserID={user?.id!}
-              postID={params.id}
-              usersWhoLiked={postData.usersWhoLiked}
-            />
+            <div className="absolute bottom-0 left-0 w-full">
+              <PostLikes
+                currentUserID={user?.id!}
+                postID={params.id}
+                usersWhoLiked={postData.usersWhoLiked}
+              />
+            </div>
           </div>
         </div>
       </div>
