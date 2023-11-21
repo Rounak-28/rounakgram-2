@@ -50,19 +50,19 @@ const PostLikes = ({ currentUserID, postID, usersWhoLiked }: Props) => {
   };
 
   return (
-    <div className="h-16 flex items-center px-3 space-x-4">
+    <div className="h-14 flex items-center px-2 space-x-3">
       <button onClick={handleLikeBtnPress}>
         {isLikedByCurrentUser ? (
-          <div className="text-3xl text-red-600">
+          <div className="text-2xl text-red-600">
             <BsHeartFill />
           </div>
         ) : (
-          <div className="text-3xl">
+          <div className="text-2xl">
             <BsHeart />
           </div>
         )}
       </button>
-      <span className="text-lg">{likeCount} Likes</span>
+      <span>{likeCount} Likes</span>
     </div>
   );
 };

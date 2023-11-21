@@ -20,6 +20,7 @@ model Post {
   userDP        String          @default("")
   userID        String          @default("")
   usersWhoLiked UsersWhoLiked[]
+  comments      Comment[]
 }
 
 model UsersWhoLiked {
@@ -27,4 +28,16 @@ model UsersWhoLiked {
   userID String
   postID Int
   Post   Post   @relation(fields: [postID], references: [id])
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  text      String
+  userName  String   @default("")
+  userDP    String   @default("")
+  userID    String   @default("")
+  postID    Int
+  Post      Post     @relation(fields: [postID], references: [id])
 }

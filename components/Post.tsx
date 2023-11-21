@@ -70,6 +70,10 @@ const Post = async ({
         postID={id}
         usersWhoLiked={usersWhoLiked}
       />
+      <Link href={`/post/${id}`}>
+        {/* try to add comment count here, like "view all 42 comments" */}
+        <p className="text-gray-300 py-2 text-sm">View all comments</p>
+      </Link>
     </div>
   );
 };
