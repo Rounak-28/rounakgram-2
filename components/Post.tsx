@@ -3,17 +3,25 @@ import Image from "next/image";
 import Link from "next/link";
 import PostLikes from "./PostLikes";
 
+type UserLike = {
+  id: number;
+  userID: string;
+  postID: number;
+};
+
 type PostProps = {
-  id: string;
+  id: number;
   caption: string;
   imageUrl: string;
   createdAt: Date;
   userName: string;
   userDP: string;
   userID: string;
+  usersWhoLiked: UserLike[];
+  currentUserID: string;
 };
 
-const Post = ({
+const Post = async ({
   id,
   caption,
   imageUrl,
@@ -21,6 +29,8 @@ const Post = ({
   userName,
   userDP,
   userID,
+  usersWhoLiked,
+  currentUserID,
 }: PostProps) => {
   const time = formatDistance(new Date(createdAt), new Date(), {
     addSuffix: true,
@@ -55,7 +65,11 @@ const Post = ({
           />
         </div>
       </Link>
-      <PostLikes likeCount={10} isLikedByCurrentUser={false} />
+      <PostLikes
+        currentUserID={currentUserID}
+        postID={id}
+        usersWhoLiked={usersWhoLiked}
+      />
     </div>
   );
 };

@@ -6,6 +6,9 @@ export async function GET() {
     orderBy: {
       createdAt: "desc",
     },
+    include: {
+      usersWhoLiked: true,
+    },
   });
   return NextResponse.json(data, { status: 200 });
 }
