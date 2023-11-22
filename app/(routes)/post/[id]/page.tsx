@@ -5,6 +5,8 @@ import PostPageBackBtn from "@/components/PostPageBackBtn";
 import Link from "next/link";
 import PostLikes from "@/components/PostLikes";
 import { currentUser } from "@clerk/nextjs";
+import Comments from "@/components/Comments";
+import PostComment from "@/components/PostComment";
 
 async function getData(id: number) {
   const host = headers().get("host");
@@ -62,12 +64,19 @@ const Page = async ({ params }: { params: { id: number } }) => {
             <div className="caption py-4">
               <p>{postData.caption}</p>
             </div>
+            <div className="comments overflow-y-auto">
+              {/* <Comments />
+              <Comments />
+              <Comments />
+              <Comments /> */}
+            </div>
             <div className="absolute bottom-0 left-0 w-full">
               <PostLikes
                 currentUserID={user?.id!}
                 postID={params.id}
                 usersWhoLiked={postData.usersWhoLiked}
               />
+              <PostComment />
             </div>
           </div>
         </div>
